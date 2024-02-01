@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <h1>EMP MGR DEPT</h1>
+        <table border="3px">
+            <tr>
+                <th>ENAME</th>
+                <th>JOB</th>
+                <th>SAL</th>
+                <th>HIREDATE</th>
+                <th>MGR NAME</th>
+                <th>DNAME</th>
+                <th>LOCATION</th>
+
+            </tr>
+            {% for eo in emd %}
+            <tr>
+                <td>{{eo.ename}}</td>
+                <!-- <td>{{eo.empno}}</td>
+                <td>{{eo.mgr}}</td> -->
+                <td>{{eo.job}}</td>
+                <td>{{eo.sal}}</td>
+                <!--<td>{{eo.comm}}</td>
+                <td>{{eo.deptno.deptno}}</td> -->
+                <td>{{eo.hiredate}}</td>
+
+                <td>{{eo.mgr.ename}}</td>
+                <!-- <td>{{eo.mgr.empno}}</td>
+                <td>{{eo.mgr.mgr}}</td>
+                <td>{{eo.job}}</td>
+                <td>{{eo.sal}}</td>
+                <td>{{eo.comm}}</td>
+                <td>{{eo.deptno.deptno}}</td>
+
+                <td>{{eo.deptno.deptno}}</td>-->
+                <td>{{eo.deptno.dname}}</td>
+                <td>{{eo.deptno.loc}}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+
+</html>
