@@ -64,3 +64,46 @@ def emp_mgr_dept(request):
     d={'emd':emd}
     return render(request,'emp_mgr_dept.html',d)
 
+
+
+
+def emp_salgrade(request):
+    EO=Emp.objects.all()
+    SO=Salgrade.objects.all()
+
+    # Retrieving the data of employees who belongs to grade 4
+    SO=Salgrade.objects.filter(grade=3) #[grade3 Salgradeobjects]
+
+    EO=Emp.objects.filter(sal__range=(SO[0].losal,SO[0].hisal))   
+
+    SO=Salgrade.objects.filter(grade=4)
+    EO=Emp.objects.filter(sal__range=(SO[0].losal,SO[0].hisal)) 
+    # Retrieving the data of employees who belongs to grade 3,4
+    SO=Salgrade.objects.filter(grade__in=(3,4))
+    EO=Emp.objects.none()
+    for sgo in SO:
+        EO=EO|Emp.objects.filter(sal__range=(sgo.losal,sgo.hisal))
+    # Retrieving the data of employees who belongs to grade 3,4 and whose name is scott, allen and turner
+    SO=Salgrade.objects.filter(grade__in=(3,4))
+    EO=Emp.objects.none()
+    for sog in SO:
+        EO=EO|Emp.objects.filter(sal__range=(sog.losal,sog.hisal),ename__in=('SCOTT','ALLEN','TURNER'))
+
+    # Retrieving the data of employees who belongs to grade 1,2,5 and whose name is Miller, smith and james
+    SO=Salgrade.objects.filter(grade__in=(1,2,3,4,5))
+    EO=Emp.objects.none()
+    for sgoe in SO:
+        EO=EO|Emp.objects.filter(sal__range=(sgoe.losal,sgoe.hisal),ename__in=('SMITH','MILLER','TURNER','SCOTT','KING'))
+
+    SO=Salgrade.objects.filter(grade__gte=4)
+    EO=Emp.objects.none()
+    for soge in SO:
+        EO=EO|Emp.objects.filter(sal__range=(soge.losal,soge.hisal))
+    
+    SO=Salgrade.objects.filter(grade__lt=3)
+    EO=Emp.objects.none()
+    for soge in SO:
+        EO=EO|Emp.objects.filter(sal__range=(soge.losal,soge.hisal))
+    
+    d={'EO':EO,'SO':SO}
+    return render(request,'emp_salgrade.html',d)
